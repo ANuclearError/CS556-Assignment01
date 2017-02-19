@@ -1,0 +1,33 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{style}
+\addbibresource{report.bib}
+
+\begin{document}
+
+\title{CS556 Data Analytics\\
+\large{Predicting User Review Scores of Steam Games}}
+\author{Aidan O'Grady - 201218150}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+
+\subfile{./tex/introduction}
+
+\subfile{./tex/dataset}
+
+\subfile{./tex/preparation}
+
+\subfile{./tex/models}
+
+\subfile{./tex/results}
+
+\newpage
+\appendix
+\section{References} % (fold)
+\label{sec:references}
+\printbibliography[heading=none]
+\newpage
+\subfile{tex/source_code}
+% section references (end)
+\end{document}

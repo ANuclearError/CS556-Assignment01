@@ -34,3 +34,13 @@ vignettes/*.pdf
 
 # The data folder, ignored due to size.
 data/
+
+# Latex
+*.aux
+*.bcf
+*.log
+*.out
+*.pdf
+*.run.xml
+*.synctex.gz
+*.toc
