@@ -3,5 +3,52 @@
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
+User reviews are a common source of information for consumers when buying
+products. Websites such as Amazon and Netflix provide users with the ability to
+give scores to products that they have bought or consumed. As a result, it would
+be ideal for manufacturers or producers to be able to predict the scoring of
+their product based on existing data.
+
+Steam is a service from Valve Corporation that acts as a digital store-front for
+PC games, being the most popular store in the market. In January 2017, the
+service reached 14 million concurrent users \cite{steam_concurrent} and saw over
+4000 games released in the year 2016, amounting to almost 40\% of the total
+library size as well \cite{steam_games_2016}. As a result, it is presenting
+users with games that they would wish to purchase has became a challenge for
+Valve, attempting to ensure that users are able to discover the games that they
+would be interested in.
+
+To tackle this problem, Valve introduced many features to the store. One such
+feature is user reviews. As mentioned earlier, users are able to provide their
+own reviews to titles that they have purchased (or downloaded in the case of
+free games). Users are able to give games a positive or a negative review, these
+reviews are aggregated into an overall percentage score, which falls into
+categories such as `Overwhelmingly Positive' or `Mostly Negative'.
+
+As the size of the services shows, there is great interest in third-parties
+mining and performing analytics upon Steam data that is not immediately
+available to the public. One such website dedicated to this is SteamSpy
+\cite{steamspy_home}, which uses a random sampling of public profiles to
+generate estimations on owners and players of games, which as became 
+well-regarded amongst the community. As part of its data collection, it converts
+games' user review scores into \emph{score ranks}, which convert the percentage
+score calculated by Steam into a percentile ranking, so a score rank of 75\%
+means that the game has a higher user review score than 75\% of games on Steam.
+
+The aim of this project is to explore models for estimating this score rank
+based on the data collated by Steamspy. Using the top 100 played games in a
+fortnight period, various techniques will be investigated to determine if
+factors such as price, developer or the median number of minutes played can
+determine an accurate estimation of a game's score rank. This report will
+provide summaries and visualisation of the data being used, before exploring the
+techniques used and outlining the results obtained from these practises.
+
+% The purpose of this project is to try and estimate this score rank, based on the
+% data available from SteamSpy. The top 100 games played over the fortnight
+% beginning the 6th of February 2017 was taken from SteamSpy, providing data such
+% as the number of owners, players and current price, in addition to various
+% tags given by users. It is hoped that this information will allow for accurate
+% predictions of score ranks, and various techniques will be used to generate
+% models capable of doing so.
 % section introduction (end)
 \end{document}
