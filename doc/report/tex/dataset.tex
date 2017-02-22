@@ -2,6 +2,75 @@
 \begin{document}
 \section{The Dataset} % (fold)
 \label{sec:dataset}
+The dataset being used is data taken from the top 100 most popular games on the
+Steam platform during the fortnight period starting the 6th of February 2017.
+This is determined by the number of users who have played the game during this
+two week period. The data was obtained from the SteamSpy API, containing various
+fields for the 100 games.
 
+\subsection{Data Fields} % (fold)
+\label{sub:data_fields}
+The data has over 200 fields included, with the majority being based on the user
+tag feature Steam offers, which presented a challenge in regards as to their use
+in the project. The main fields of the dataset are:
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		Field & Description \\
+		\hline
+		AppID & The application ID. \\
+		\hline
+		Name & The name of the game. \\
+		\hline
+		Developer & A comma separated list of developers of the game. \\
+		\hline
+		Publisher & A comma separated list of publishers of the game. \\
+		\hline
+		Score Rank & The score rank of the game based on user reviews. A score
+		rank of 75\% indicates that the game has better reviews than 75\% of
+		Steam games. \\
+		\hline
+		\emph{Owners} & The estimated number of users who own the game. This
+		figure can be inflated with free games or games being offered as a free
+		weekend. \\
+		\hline
+		\emph{Players Forever} & The number of users who have played the game
+		since March 2009. \\
+		\hline
+		\emph{Players 2 Weeks} & The number of users who have played the game in
+		the two weeks period of this request. \\
+		\hline
+		Average Forever & Average playtime since March 2009 in minutes.\\
+		\hline
+		Average 2 Weeks & Average playtime in two weeks period in minutes. \\
+		\hline
+		Median Forever & Median playtime since March 2009 in minutes. \\
+		\hline
+		Median 2 Weeks & Median playtime in two weeks period in minutes. \\
+		\hline
+		CCU & The peak number of concurrent users playing the game the day
+		before the request was made. \\
+		\hline
+		Price & The current price of the game in US cents. \\
+		\hline
+	\end{tabularx}
+	\vspace{1ex}
+\end{table}
+
+It must be noted that for the Owners, Players Forever and Players 2 Weeks field
+all include an additional field that denotes a variance on the figure within
+said field, due to being estimations rather than the actual figure. For example,
+the game Dota 2 has \(93\,965\,255\) owners with a variance of \(243\,479\),
+meaning that the actual number of owners will lie somewhere in the range of
+\(93\,965\,255 \pm 243\,479 \) owners. The same principle applies for the other
+two fields.
+% subsection data_fields (end)
+
+\subsection{Visualisation} % (fold)
+\label{sub:visualisation}
+
+% subsection visualisation (end)
 % section dataset (end)
 \end{document}
