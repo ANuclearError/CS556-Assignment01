@@ -6,61 +6,17 @@ The dataset being used is data taken from the top 100 most popular games on the
 Steam platform during the fortnight period starting the 6th of February 2017.
 This is determined by the number of users who have played the game during this
 two week period. The data was obtained from the SteamSpy API, containing various
-fields for the 100 games.
+fields for the 100 games. While \autoref{table:fields} \footnote{All tables
+and figures can be found in \autoref{sec:figures_tables}} includes all fields
+returned from the API, Section \autoref{sec:preparation}outlines how only certain
+fields were used as part of this study, due to many of the fields covering
+similar areas.
 
 \subsection{Data Fields} % (fold)
 \label{sub:data_fields}
 The data has over 200 fields included, with the majority being based on the user
 tag feature Steam offers, which presented a challenge in regards as to their use
 in the project. The main fields of the dataset are:
-
-\begin{table}[H]
-	\centering
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		Field & Description \\
-		\hline
-		AppID & The application ID. \\
-		\hline
-		Name & The name of the game. \\
-		\hline
-		Developer & A comma separated list of developers of the game. \\
-		\hline
-		Publisher & A comma separated list of publishers of the game. \\
-		\hline
-		Score Rank & The score rank of the game based on user reviews. A score
-		rank of 75\% indicates that the game has better reviews than 75\% of
-		Steam games. \\
-		\hline
-		\emph{Owners} & The estimated number of users who own the game. This
-		figure can be inflated with free games or games being offered as a free
-		weekend. \\
-		\hline
-		\emph{Players Forever} & The number of users who have played the game
-		since March 2009. \\
-		\hline
-		\emph{Players 2 Weeks} & The number of users who have played the game in
-		the two weeks period of this request. \\
-		\hline
-		Average Forever & Average playtime since March 2009 in minutes.\\
-		\hline
-		Average 2 Weeks & Average playtime in two weeks period in minutes. \\
-		\hline
-		Median Forever & Median playtime since March 2009 in minutes. \\
-		\hline
-		Median 2 Weeks & Median playtime in two weeks period in minutes. \\
-		\hline
-		CCU & The peak number of concurrent users playing the game the day
-		before the request was made. \\
-		\hline
-		Price & The current price of the game in US cents. \\
-		\hline
-		Tag & The number of users who have tagged the game with the specific
-		tag in question. \\
-		\hline
-	\end{tabularx}
-	\vspace{1ex}
-\end{table}
 
 It must be noted that for the Owners, Players Forever and Players 2 Weeks field
 all include an additional field that denotes a variance on the figure within
@@ -71,9 +27,74 @@ meaning that the actual number of owners will lie somewhere in the range of
 two fields.
 % subsection data_fields (end)
 
-\subsection{Visualisation} % (fold)
-\label{sub:visualisation}
+\subsection{Score Rank} % (fold)
+\label{sub:score_rank}
+Score rank is the value that is of most interest, being the value that the model
+will be trying to predict. The score rank is a value from 1 to 100, and is the
+percent of games that this game has a higher score than. A score rank in the 90s
+indicates a highly acclaimed title, whereas a rank in the 10s means that the
+game is highly unpopular amongst parts of the consumer base. 
 
-% subsection visualisation (end)
+\autoref{fig:score_rank}
+The scores have been gathered into 10 groups (1-10, 11-20 and so on). A cursory
+glance shows that the dataset is skewed towards the higher end, with 53\% of
+games having a ScoreRank of 71 or above. While there is still a wide spread of
+scores, with 5 being the lowest and 99 being the average. A median of 75 and
+mean of 66.19 does show that the vast majority of games do have high ScoreRanks.
+This is a natural assumption to make, since these are the most played games on
+Steam, it is natural that they will have higher ScoreRanks. The presence of
+lower ranked games in this dataset does show that factors beyond their playtime
+are in place.
+% subsection score_rank (end)
+
+\subsection{Price} % (fold)
+\label{sub:price}
+The price of a game presents some issues. Since the dataset only provides a
+snapshot of the current price, rather than historical data. It can be difficult
+to use the price due to the nature of a store having sales. As much, it must be
+assumed that these games have experienced similar lifecycles when it comes to
+sales. In addition, the number of free games does pose another challenge, as it
+can be argued that they should be studied separately due to differences in
+business model.
+
+Prices range from \$0 to \$59.99, with the median working out as \$19.99, which
+is the typical price of an older major AAA title or a recent premium independent
+title. Of the 28 games under \$5, 22 of them are free. The mean price is
+\$21.28, a result of the majority of games being on the cheaper side of the
+histogram.
+% subsection price (end)
+
+\subsection{ScoreRank and Price} % (fold)
+\label{sub:scorerank_and_price}
+One of the first points of interest was looking for a connection between price
+and score rank. By plotting all games based on their price and score rank, it
+could be determined whether or not there was any correlation.
+
+\autoref{fig:score_price} is divided into four sections based on whether price
+or score rank is low or high. The bottom-right corner is the most populous, with
+38 games not including the 6 games that can be seen on the inner edges of the
+quarter. This indicates that cheaper games are more likely to have high score
+ranks than low score ranks. Expensive games meanwhile, are more even, suggesting
+that the market is more critical of games with a higher price point (though
+including \$30 games does show a slight edge for positive receptions).
+
+It is apparent that more than just price will need to considered when estimating
+score rank.
+% subsection scorerank_and_price (end)
+
+\subsection{Publishers} % (fold)
+\label{sub:publishers}
+Whoever publishes a game can have an impact on the reviews, due to the market
+having prejudices for or against that publisher. As such, it is useful to see
+which publishers get higher reviews. Naturally, this is best looked at with
+regards to publishers with multiple games, the rest have been grouped together
+as `other').
+
+\autoref{fig:publishers} shows that Klei Entertainment and Valve are the
+publishers with the highest average score ranks, indicating that a game
+published by these companies is likely to be of high quality to the markets'
+eyes. Meanwhile, it is clear that Daybreak and Ubisoft published games are less
+popular, getting lower reviews. It is likely that any model for predicting
+scores will depend on the publisher as part of it.
 % section dataset (end)
 \end{document}
