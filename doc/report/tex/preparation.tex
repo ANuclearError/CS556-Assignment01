@@ -4,5 +4,25 @@
 \label{sec:preparation}
 Before modelling, the data obtained from SteamSpy had to be cleansed and
 modified to better suit the problem being investigated.
+
+The AppID and Name fields were irrelevant, simply being IDs rather than actual
+data. Therefore, it was ideal that they be removed from the dataset during the
+modelling process.
+
+\subsection{Categorising Score and Price} % (fold)
+\label{sub:categorising_score_price}
+The goal of the project is to create a model for estimating the ScoreRank
+field. Thus, it maybe better to try and predict the score as a range, rather
+than the specific value. In order to address this, additional columns were made
+for `ScoreGrade' and `PriceBand'. ScoreGrade divides the ScoreRanks into ten
+different grades, based on its score from 0-10, 10-20 and so on. This matches
+up with the histogram shown in \fullref{fig:score_rank}.
+
+The same principle was applied with PriceBand, which maps each price to a \$5
+denomination. It should again be pointed out how this makes the lowest band
+inflate in size to the number of free-to-play games in the dataset. It may be
+ideal for this to be its own price band, rather than being merged with the paid
+games less than \$5.
+% subsection categorising_score_price (end)
 % section preparation (end)
 \end{document}
