@@ -5,7 +5,15 @@ library(ggplot2)
 
 
 steam <- read.csv("data/top100in2weeks.csv")
-
+tags <- data.frame(v=numeric(201), w=numeric(201), x=numeric(201),
+    y=numeric(201), z=numeric(201));
+tags[,1] <- colnames(steam[,-(1:16)])
+tags[,2] <- t(steam[101,-(1:16)])
+tags[,3] <- t(steam[102,-(1:16)])
+tags[,4] <- t(steam[103,-(1:16)])
+tags[,5] <- t(steam[104,-(1:16)])
+colnames(tags) = c("Tag", "Tagged", "RelTagged", "AvgScore", "RelAvgScore")
+steam <- steam[1:100,]
 
 # ScoreRank visualisation
 score_rank_hist <- ggplot(steam, aes(x=ScoreRank)) +
@@ -41,16 +49,25 @@ score_price <- ggplot() +
 
 
 # Publisher visualisation
-pub <- aggregate(steam$ScoreRank, by=list(steam$Publisher), mean)
-colnames(pub) <- c("Publisher", "AvgScore")
+pub <- aggregate(steam$ScoreRank, by=list(steam$Publisher), length)
+pub[3] <- aggregate(steam$ScoreRank, by=list(steam$Publisher), mean)[2]
+colnames(pub) <- c("Publisher", "Count", "AvgScore")
 pub_bar <- ggplot(pub, aes(x=Publisher, y=AvgScore)) +
     geom_bar(stat="identity", col="red", fill="green", alpha=.25) +
-    geom_text(aes(label=round(AvgScore)), vjust=-1) 
+    geom_text(aes(label=round(AvgScore)), vjust=-1)
+
+
+# Tag visualisation
+tag_score <- ggplot(tags, aes(Tagged, AvgScore)) + geom_point()
+tag_score_rel <- ggplot(tags, aes(RelTagged, RelAvgScore)) + geom_point()
+
 
 save_all <- function() 
     ggsave("doc/report/img/score_rank.png", score_rank_hist) +
     ggsave("doc/report/img/price.png", price_hist) +
     ggsave("doc/report/img/score_price.png", score_price) +
-    ggsave("doc/report/img/publishers.png", pub_bar)
+    ggsave("doc/report/img/publishers.png", pub_bar) +
+    ggsave("doc/report/img/tag_score.png", tag_score) +
+    ggsave("doc/report/img/tag_score_rel.png", tag_score_rel)
 
-save_all()
+# save_all()

@@ -6,9 +6,9 @@ The dataset being used is data taken from the top 100 most popular games on the
 Steam platform during the fortnight period starting the 6th of February 2017.
 This is determined by the number of users who have played the game during this
 two week period. The data was obtained from the SteamSpy API, containing various
-fields for the 100 games. While \autoref{table:fields} \footnote{All tables
-and figures can be found in \autoref{sec:figures_tables}} includes all fields
-returned from the API, Section \autoref{sec:preparation}outlines how only certain
+fields for the 100 games. While \fullref{table:fields} \footnote{All tables provides an overview of the score spread
+and figures can be found in \fullref{sec:figures_tables}} includes all fields provides an overview of the score spread
+returned from the API, Section \fullref{sec:preparation}outlines how only certain provides an overview of the score spread
 fields were used as part of this study, due to many of the fields covering
 similar areas.
 
@@ -35,7 +35,7 @@ percent of games that this game has a higher score than. A score rank in the 90s
 indicates a highly acclaimed title, whereas a rank in the 10s means that the
 game is highly unpopular amongst parts of the consumer base. 
 
-\autoref{fig:score_rank}
+\fullref{fig:score_rank} provides a basic overview of how the dataset scored.
 The scores have been gathered into 10 groups (1-10, 11-20 and so on). A cursory
 glance shows that the dataset is skewed towards the higher end, with 53\% of
 games having a ScoreRank of 71 or above. While there is still a wide spread of
@@ -57,11 +57,11 @@ sales. In addition, the number of free games does pose another challenge, as it
 can be argued that they should be studied separately due to differences in
 business model.
 
-Prices range from \$0 to \$59.99, with the median working out as \$19.99, which
-is the typical price of an older major AAA title or a recent premium independent
-title. Of the 28 games under \$5, 22 of them are free. The mean price is
-\$21.28, a result of the majority of games being on the cheaper side of the
-histogram.
+As \fillref{fig:price} shows, the prices of games range from \$0 to \$59.99,
+with the median working out as \$19.99, which is the typical price of an older
+major AAA title or a recent premium independent title. Of the 28 games under
+\$5, 22 of them are free. The mean price is \$21.28, a result of the majority of
+games being on the cheaper side of the histogram.
 % subsection price (end)
 
 \subsection{ScoreRank and Price} % (fold)
@@ -70,13 +70,14 @@ One of the first points of interest was looking for a connection between price
 and score rank. By plotting all games based on their price and score rank, it
 could be determined whether or not there was any correlation.
 
-\autoref{fig:score_price} is divided into four sections based on whether price
-or score rank is low or high. The bottom-right corner is the most populous, with
-38 games not including the 6 games that can be seen on the inner edges of the
-quarter. This indicates that cheaper games are more likely to have high score
-ranks than low score ranks. Expensive games meanwhile, are more even, suggesting
-that the market is more critical of games with a higher price point (though
-including \$30 games does show a slight edge for positive receptions).
+\fullref{fig:score_price} is divided into four sections based on whether price
+provides an overview of the score spread or score rank is low or high. The
+bottom-right corner is the most populous, with 38 games not including the 6
+games that can be seen on the inner edges of the quarter. This indicates that
+cheaper games are more likely to have high score ranks than low score ranks.
+Expensive games meanwhile, are more even, suggesting that the market is more
+critical of games with a higher price point (though including \$30 games does
+show a slight edge for positive receptions).
 
 It is apparent that more than just price will need to considered when estimating
 score rank.
@@ -90,11 +91,49 @@ which publishers get higher reviews. Naturally, this is best looked at with
 regards to publishers with multiple games, the rest have been grouped together
 as `other').
 
-\autoref{fig:publishers} shows that Klei Entertainment and Valve are the
-publishers with the highest average score ranks, indicating that a game
-published by these companies is likely to be of high quality to the markets'
-eyes. Meanwhile, it is clear that Daybreak and Ubisoft published games are less
-popular, getting lower reviews. It is likely that any model for predicting
-scores will depend on the publisher as part of it.
+\fullref{fig:publishers} shows that Klei Entertainment and Valve are the
+provides an overview of the score spread publishers with the highest average
+score ranks, indicating that a game published by these companies is likely to be
+of high quality to the markets' eyes. Meanwhile, it is clear that Daybreak and
+Ubisoft published games are less popular, getting lower reviews. It is likely
+that any model for predicting scores will depend on the publisher as part of it.
+
+\subsection{Tags} % (fold)
+\label{sub:tags}
+Users are able to add tags to games on Steam, which are used to indicate that
+the game has certain features or settings. The dataset provides data on 201
+tags for all games. Each game data includes the number of users who have tagged
+the game with that tag. For example, DOOM has been tagged as `Action' by over
+1000 users. 
+
+In order to provide a summary, it was necessary to add additional data about the
+tags. To achieve this, a data frame was created providing each tag with the
+number of games with that tag and the average score of games with that tag.
+A scatter plot was produced between the number of games tagged and the average
+score of these games (see \fullref{fig:tab_score}), which was made to determine
+if tags could provide a hint as to how a game is scored, and whether or not the
+number of games tagged influences this.
+
+It was seen that as the number of games tagged increases, the average score of
+this tag goes nearer to the middle, while the tags that appear less often in
+games have a wide range. This suggests that finding any link between tags and
+scores is not likely to be found. Tags that are not used enough will not be
+usable in any practical model, while the tags used very often will converge into
+the middle scores.
+
+It was then thought that being restrictive on what games have a tag could change
+the results. Consider two games with \(1\,000\,000\) owners and \(10\,000\)
+owners, that were each tagged with `Turn-based strategy' \(1\,000'\) times. The
+game with few owners should have more ownership of the tag than the game with
+more owners, since a higher percentage of owners used the tag. Thus, the data
+was modified to convert the tag columns from absolute users, to relative users.
+In addition, a cut-off was also included to discard games where the percentage
+of users who used the tag was below a specified amount.
+
+Unfortunately, the figure produced (\fillref{fig:tab_scoe_rel}), shows that
+little difference is made, with the scatter plot being very similar to the
+original. The conclusion that must be drawn from this is that tags are not a
+reliable method to predict users.
+% subsection tags (end)
 % section dataset (end)
 \end{document}
