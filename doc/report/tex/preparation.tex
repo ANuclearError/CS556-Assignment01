@@ -9,7 +9,7 @@ The AppID and Name fields were irrelevant, simply being IDs rather than actual
 data. Therefore, it was ideal that they be removed from the dataset during the
 modelling process.
 
-\subsection{Categorising Score and Price} % (fold)
+\subsection{Categorising Score \& Price} % (fold)
 \label{sub:categorising_score_price}
 The goal of the project is to create a model for estimating the ScoreRank
 field. Thus, it maybe better to try and predict the score as a range, rather
@@ -24,5 +24,17 @@ inflate in size to the number of free-to-play games in the dataset. It may be
 ideal for this to be its own price band, rather than being merged with the paid
 games less than \$5.
 % subsection categorising_score_price (end)
+
+\subsection{Owners, Players, Playtime} % (fold)
+\label{sub:owners_players_playtime}
+For owners and players, a continuous field does not seem appropriate for the
+task at hand. It is unlikely that a difference of 500 owners will make an
+impact on any resulting model. As such, an additional field will be created by
+turning the continuous values into ranges. These three fields will be cut into
+groups at intervals of every half million. It is likely that a more appropriate
+figure may be found during the modelling process. Playtime will be converted
+from minutes into hours using similar methods. Half an hour periods may be used
+if it is found to be more appropriate.
+% subsection owners_players_playtime (end)
 % section preparation (end)
 \end{document}

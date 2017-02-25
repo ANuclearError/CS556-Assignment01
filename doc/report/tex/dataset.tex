@@ -6,11 +6,12 @@ The dataset being used is data taken from the top 100 most popular games on the
 Steam platform during the fortnight period starting the 6th of February 2017.
 This is determined by the number of users who have played the game during this
 two week period. The data was obtained from the SteamSpy API, containing various
-fields for the 100 games. While \fullref{table:fields} \footnote{All tables provides an overview of the score spread
-and figures can be found in \fullref{sec:figures_tables}} includes all fields provides an overview of the score spread
-returned from the API, Section \fullref{sec:preparation}outlines how only certain provides an overview of the score spread
-fields were used as part of this study, due to many of the fields covering
-similar areas.
+fields for the 100 games. While \fullref{table:fields} \footnote{All tables
+provides an overview of the score spread and figures can be found in
+\fullref{sec:figures_tables}} includes all fields provides an overview of the
+score spread returned from the API, Section \fullref{sec:preparation}outlines
+how only certain provides an overview of the score spread fields were used as
+part of this study, due to many of the fields covering similar areas.
 
 \subsection{Data Fields} % (fold)
 \label{sub:data_fields}
@@ -64,8 +65,8 @@ major AAA title or a recent premium independent title. Of the 28 games under
 games being on the cheaper side of the histogram.
 % subsection price (end)
 
-\subsection{ScoreRank and Price} % (fold)
-\label{sub:scorerank_and_price}
+\subsection{ScoreRank \& Price} % (fold)
+\label{sub:scorerank_price}
 One of the first points of interest was looking for a connection between price
 and score rank. By plotting all games based on their price and score rank, it
 could be determined whether or not there was any correlation.
@@ -81,7 +82,7 @@ show a slight edge for positive receptions).
 
 It is apparent that more than just price will need to considered when estimating
 score rank.
-% subsection scorerank_and_price (end)
+% subsection scorerank_price (end)
 
 \subsection{Publishers} % (fold)
 \label{sub:publishers}
@@ -110,7 +111,7 @@ In order to provide a summary, it was necessary to add additional data about the
 tags. To achieve this, a data frame was created providing each tag with the
 number of games with that tag and the average score of games with that tag.
 A scatter plot was produced between the number of games tagged and the average
-score of these games (see \fullref{fig:tab_score}), which was made to determine
+score of these games (see \fullref{fig:tag_score}), which was made to determine
 if tags could provide a hint as to how a game is scored, and whether or not the
 number of games tagged influences this.
 
@@ -130,7 +131,7 @@ was modified to convert the tag columns from absolute users, to relative users.
 In addition, a cut-off was also included to discard games where the percentage
 of users who used the tag was below a specified amount.
 
-Unfortunately, the figure produced in \fullref{fig:tab_scoe_rel}, shows that
+Unfortunately, the figure produced in \fullref{fig:tag_score_rel}, shows that
 little difference is made, with the scatter plot being very similar to the
 original. The conclusion that must be drawn from this is that tags are not a
 reliable method to predict users.
@@ -138,12 +139,93 @@ reliable method to predict users.
 
 \subsection{Owners \& Players} % (fold)
 \label{sub:owners_players}
+There are three fields used to denote ownership of a game: owners, players
+forever and players 2 weeks. Owners denotes the number of users who have
+ownership of the title, while players forever indicates how many have played the
+game who own it. Players 2 weeks meanwhile, only includes those who played the
+game in the two week period.  Free games result in a more artificial inflation
+of the first two fields due to including players who may have only played the
+game for a very brief session due to it being free. It would be ideal of score
+rank was influenced by recent players more-so than the other fields, since it
+would avoid this particular issue.
 
+\subsubsection{Owners} % (fold)
+\label{ssub:owners}
+The number of owners for a game ranges from \(300\,000\) to \(95\,000\,000\),
+which is a monumental range to deal with. The mean is 57 million users while the
+median is 29 million, which further indicates this vast spread, mainly caused by
+the free games. \fullref{fig:owners} shows that games above 12.5 million owners
+are more likely to be positively reviewed than negative, but below that it is
+not possible to rely on finding a relation between owners and score ranks.
+% subsubsection owners (end)
+
+\subsubsection{Players Forever} % (fold)
+\label{ssub:players_forever}
+Players Forever is very similar to that of owners, and could be expressed as a
+percentage rather than a raw value. As such, it would be natural to assume that
+the summary and visualisation to be similar to that of owners. Inevitably, 
+\fullref{fig:players_f} does indeed show that the relation is the same, meaning
+that there is no real difference between using either of these fields to predict
+score rank.
+% subsubsection players_forever (end)
+
+\subsubsection{Players Two Weeks} % (fold)
+\label{ssub:players_two_weeks}
+Since this field is more focused on recent activity, it is more likely to
+produce different results than players forever did. This field ranges from
+one hundred thousand to 9.5 million users. With a median of 2.4 and average of
+5.3 million. This spread is a scaled down version of the previous two, but still
+exists. However, \fullref{fig:players_t} shows that finding a relation between
+these two values is highly confusing. The attempted smoothing shows such a wide
+area for error that this particular field feels very useless in estimating
+score rank.
+% subsubsection players_two_weeks (end)
 % subsection owners_players (end)
 
 \subsection{Playtime} % (fold)
 \label{sub:playtime}
+Data is collected on how many minutes users have played the game, both since the
+game's release and in a fortnight period as well. Both the average and median of
+these two prices of data are stored for each game. This means that they can be
+used to see what patterns emerge from these figures.
 
+\subsubsection{Average Forever} % (fold)
+\label{ssub:average_forever}
+Average playtime forever shows the average amount of time a user has played
+this game. Of the 100 games in the dataset, the smallest is 134 minutes while
+the highest average is \(21\,480\) minutes. The average of these averages is
+\(3\,260\) minutes while the median is \(3\,885\) minutes.
+
+\fullref{fig:avg_f} shows how this relates to score. Those games which are
+closer to \(3\,000\) minutes played on average appear to get a bump in score,
+while games not played as often or much more often do have slower scores.
+However, the decrease for increased averages is slight, and is mostly caused by
+a single outlier, suggesting that a too high average doesn't really cause a
+decrease in score rank.
+% subsubsection average_forever (end)
+
+\subsubsection{Average 2 Weeks} % (fold)
+\label{ssub:average_2_weeks}
+This data is the same as the previous column, except focused on the past two
+weeks. Over the fortnight period the data snapshots, the games were played for
+between 94 and \(2\,000\) with an average of 563 minutes and median of 503.
+This means that the most popular games on Steam are played for 10 hours by users
+over a two week period.
+
+\fullref{fig:avg_t} shows that generally, as the average increases, the score
+will decrease, although this is again a slight decrease exaggerated by the
+outlier. Again, the margin for error is rather wide, so this does not provide
+extensive data.
+% subsubsection average_2_weeks (end)
+
+\subsubsection{Median Playtime} % (fold)
+\label{ssub:median_playtime}
+The median playtimes shows similar patterns to those of the average playtimes.
+\fullref{fig:med_f} and \fullref{fig:med_t} show how they relate to the score
+rank. It is clear that there is not one of these figures that provides a strong
+estimation of score, and thus would either need to be all included, or all
+ignored.
+% subsubsection median_playtime (end)
 % subsection playtime (end)
 % section dataset (end)
 \end{document}
