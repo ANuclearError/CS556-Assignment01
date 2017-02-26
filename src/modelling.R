@@ -48,6 +48,19 @@ res <- ggplot(test) + geom_point(aes(x=(ScoreRank-PredLR), y=ScoreRank)) +
 rmse_t <- rmse(test$ScoreRank, test$PredLR)
 
 
+# Linear regression with only tags
+train_t <- steam[lr, -c(1:3, 5:13)]
+test_t <- steam[-lr, -c(1:3, 5:13)]
+mdl_t <- lm(formula = ScoreRank ~., data = train_t)
+test_t$PredLR <- predict(mdl, test_t)
+pred_t <- ggplot(test_t) + geom_point(aes(x=PredLR, y=ScoreRank)) +
+    geom_abline(intercept=0, slope=1, color="blue")
+res_t <- ggplot(test_t) + geom_point(aes(x=(ScoreRank-PredLR), y=ScoreRank)) +
+    geom_abline(intercept=0, slope=0, color="blue")
+rmse_t <- rmse(test_t$ScoreRank, test_t$PredLR)
+
+
+# Clustering
 steam_vars <- colnames(steam)[-(1:3)]
 steam_matrix <- scale(steam[,steam_vars])
 steam_center <- attr(steam_matrix, "scaled:center")
@@ -55,22 +68,26 @@ steam_scale <- attr(steam_matrix, "scaled:scale")
 
 d <- dist(steam_matrix, method="euclidean")
 steam_fit <- hclust(d, method="ward.D")
-steam_plot <- plot(steam_fit, labels=steam$Name)
-rect.hclust(steam_fit, k=8)
+plot(steam_fit, labels=steam$Name)
+rect.hclust(steam_fit, k=6)
 
-groups <- cutree(steam_fit, k=8)
+groups <- cutree(steam_fit, k=6)
 
 princ <- prcomp(steam_matrix)
 project <- predict(princ, newdata=steam_matrix)[,1:2]
-project.plus <- cbind(as.data.frame(project, cluster=as.factor(groups),
-    name=steam$Name))
+project.plus <- cbind(as.data.frame(project), cluster=as.factor(groups),
+    name=steam$Name)
 
 clust_plot <- ggplot(project.plus, aes(x=PC1, y=PC2)) +
-    geom_point(aes(shape=cluster, color=cluster)) +
-    geom_text(aes(label=name), hjust=0, vjust=1)
+    geom_point(aes(shape=cluster, color=cluster))
 
 save_all <- function()
     ggsave("doc/report/img/pred_b.png", pred_b) +
     ggsave("doc/report/img/pred.png", pred) +
+    ggsave("doc/report/img/pred_t.png", pred_t) +
     ggsave("doc/report/img/res_b.png", res_b) +
-    ggsave("doc/report/img/res.png", res)
+    ggsave("doc/report/img/res.png", res) +
+    ggsave("doc/report/img/res_t.png", res_t) +
+    ggsave("doc/report/img/clust_plot.png", clust_plot) +
+    ggsave("doc/report/img/clust_plot_text.png", 
+        clust_plot + geom_text(aes(label=name), hjust=0, vjust=0))

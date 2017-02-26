@@ -63,7 +63,30 @@ use of linear regression.
 
 \subsection{Clustering} % (fold)
 \label{sub:clustering}
+Clustering techniques were used to determine if information could be obtained
+to asst with helping predict score. The data was split into 6 clusters, and
+depending on the clusters that would emerge, this would provide an idea on how
+to move forward.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/clust_plot.png}
+    \caption{The 6 clusters}
+\end{figure}
+
+However, the results obtained from the clustering did little to help with the
+problem at hand. Looking at the cluster tree did provide some context as to what
+the clusters were. Cluster 1 games were published by the same company and each
+had a large number of players. Cluster 3 games were all role-playing games, all
+with many users. Cluster 5 were all games that involved simulation and/or
+strategy, while cluster six were all games that had first person camera
+perspectives. The other 2 clusters appeared to be a random collection rather
+than any meaningful clusters.
+
+Again, it appeared that clustering the data would provide little help towards
+discovering what gives games high review scores from users. It was at this point
+where it seemed that trying to find any model would not be possible in the given
+time period.
 % subsection clustering (end)
 % section models (end)
 \end{document}

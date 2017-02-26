@@ -2,6 +2,42 @@
 \begin{document}
 \section{Results Analysis} % (fold)
 \label{sec:results}
+Regrettably, there is little substantial information that can be gained from
+the attempts at modelling the data from SteamSpy. The clusters obtained were
+focused heavily on genre from the tag columns, while the linear regression
+proved to be of little help as well. It may be the case that further
+experimenting with columns to focus on during linear regression may have
+produced a more accurate model.
 
+The score rank is based on reviews users leave on the Steam service. To be able
+to predict this, it must be assumed that the users will review in a rational,
+predictable manner. There are many outside influences on how users review a game
+that cannot be modelled or stored in a dataset. For example, the review system
+has been subject to being hijacked for comedy rather than evaluation of the
+product itself, and there is the impact of a vocal minority, where those with
+negative feelings are more likely to advertise their complaints. For example,
+there was a recent incident where the game Football Manager 2017 became heavily
+flooded with negative reviews from the Chinese market due to a lack of official
+translation \cite{football_manager}. As a result, the score rank of the game
+became heavily dominated by something the dataset cannot take into account, this
+makes modelling the score rank very difficult.
+
+The initial visualisations showed that publishers were likely to be a strong
+indicator of score ranks, but attempts to model this could not progress due to
+issues with handling the categorical nature of the variable. It is likely that
+another attempt with focus on this area would provide more encouraging results.
+As such, it would be recommended that any further study with this dataset would
+aim to focus on this particular aspect.
+
+Overall, the results obtained from this process have been disappointing. At this
+point, it is unlikely that a model can be found to predict review scores. If
+such a model does exist, and was merely not found, it is most likely to be
+obtained from tags and publishers rather than the numerical data. Tags, like
+reviews, are controlled by the users themselves, while the users will have
+established thoughts on the publishers based on previous work, meaning that
+the influence the publisher has on reviews can be more predictable and thus more
+reliably modelled. The task then would be trying to determine which tags are
+likely to be found in positively reviewed games, and which would be seen in
+negatively reviewed games.
 % section results (end)
 \end{document}
